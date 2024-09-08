@@ -66,7 +66,7 @@ export const useListStore = create<InitialState>()(
             state.lists = state.lists.filter((list) => list.id !== id);
           });
           toast.info("List Deleted", {
-            description: "Properly deserve it, right?",
+            description: "Probably deserve it, right?",
           });
         },
         reorderList: (lists) => {
