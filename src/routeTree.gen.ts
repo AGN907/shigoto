@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TasksIndexImport } from './routes/tasks/index'
+import { Route as TasksIdImport } from './routes/tasks/$id'
 
 // Create/Update Routes
 
@@ -20,10 +21,22 @@ const TasksIndexRoute = TasksIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const TasksIdRoute = TasksIdImport.update({
+  path: '/tasks/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tasks/$id': {
+      id: '/tasks/$id'
+      path: '/tasks/$id'
+      fullPath: '/tasks/$id'
+      preLoaderRoute: typeof TasksIdImport
+      parentRoute: typeof rootRoute
+    }
     '/tasks/': {
       id: '/tasks/'
       path: '/tasks'
@@ -36,7 +49,10 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ TasksIndexRoute })
+export const routeTree = rootRoute.addChildren({
+  TasksIdRoute,
+  TasksIndexRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -46,8 +62,12 @@ export const routeTree = rootRoute.addChildren({ TasksIndexRoute })
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/tasks/$id",
         "/tasks/"
       ]
+    },
+    "/tasks/$id": {
+      "filePath": "tasks/$id.tsx"
     },
     "/tasks/": {
       "filePath": "tasks/index.tsx"
