@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TasksIndexImport } from './routes/tasks/index'
-import { Route as TasksIdImport } from './routes/tasks/$id'
+import { Route as TasksListIdIndexImport } from './routes/tasks/$listId/index'
 
 // Create/Update Routes
 
@@ -21,8 +21,8 @@ const TasksIndexRoute = TasksIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const TasksIdRoute = TasksIdImport.update({
-  path: '/tasks/$id',
+const TasksListIdIndexRoute = TasksListIdIndexImport.update({
+  path: '/tasks/$listId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -30,18 +30,18 @@ const TasksIdRoute = TasksIdImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tasks/$id': {
-      id: '/tasks/$id'
-      path: '/tasks/$id'
-      fullPath: '/tasks/$id'
-      preLoaderRoute: typeof TasksIdImport
-      parentRoute: typeof rootRoute
-    }
     '/tasks/': {
       id: '/tasks/'
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/tasks/$listId/': {
+      id: '/tasks/$listId/'
+      path: '/tasks/$listId'
+      fullPath: '/tasks/$listId'
+      preLoaderRoute: typeof TasksListIdIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -50,8 +50,8 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  TasksIdRoute,
   TasksIndexRoute,
+  TasksListIdIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -62,15 +62,15 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/tasks/$id",
-        "/tasks/"
+        "/tasks/",
+        "/tasks/$listId/"
       ]
-    },
-    "/tasks/$id": {
-      "filePath": "tasks/$id.tsx"
     },
     "/tasks/": {
       "filePath": "tasks/index.tsx"
+    },
+    "/tasks/$listId/": {
+      "filePath": "tasks/$listId/index.tsx"
     }
   }
 }

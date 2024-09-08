@@ -84,7 +84,11 @@ export function ListItem({
                 </div>
               </form>
             ) : (
-              <Link to="/tasks/$id" params={{ id }} className="w-full">
+              <Link
+                to="/tasks/$listId"
+                params={{ listId: id }}
+                className="w-full"
+              >
                 {name}
               </Link>
             )}
