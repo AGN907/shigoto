@@ -66,10 +66,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply flex flex-col min-h-screen bg-background text-foreground;
   }
 
   #root {
-    @apply h-full;
+    @apply flex-1 flex flex-col;
   }
 }
