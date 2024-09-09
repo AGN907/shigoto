@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { List } from "@/stores/list-store";
 
+import { IconPicker } from "./icons-picker";
+
 interface ListProps {
   list: List;
   onEditList: (id: string, newName: string) => void;
@@ -63,8 +65,12 @@ export function ListItem({
           style={style}
           className="relative border px-2 py-4 flex items-center group rounded-xl hover:bg-accent/60 transition-colors duration-300"
         >
-          <div className="group items-center flex gap-4">
-            <Icon className="size-5" />
+          <div className="group grid grid-cols-[30px_1fr] items-center gap-4">
+            <IconPicker listId={id} activeIcon={icon}>
+              <Button className="rounded-full" variant="ghost" size="icon">
+                <Icon className="size-5" />
+              </Button>
+            </IconPicker>
 
             {isEditing ? (
               <form className="flex items-center gap-2" onSubmit={onEditSubmit}>

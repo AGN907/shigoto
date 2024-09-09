@@ -22,11 +22,10 @@ interface Actions {
   deleteList: (id: string) => void;
   duplicateList: (originalId: string) => void;
   reorderList: (lists: List[]) => void;
+  changeListIcon: (id: string, iconName: ListIcon) => void;
 }
 
-type InitialState = State & {
-  actions: Actions;
-};
+type InitialState = State & { actions: Actions };
 
 export const useListStore = create<InitialState>()(
   persist(
@@ -83,6 +82,14 @@ export const useListStore = create<InitialState>()(
           });
           toast.success("List Duplicated", {
             description: "It's like a copy, but newer",
+          });
+        },
+        changeListIcon: (id, iconName) => {
+          set((state) => {
+            const list = state.lists.find((list) => list.id === id);
+            if (list) {
+              list.icon = iconName;
+            }
           });
         },
       },
